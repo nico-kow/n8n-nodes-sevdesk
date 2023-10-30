@@ -1,19 +1,19 @@
 {
-  "name": "n8n-nodes-<...>",
+  "name": "n8n-nodes-sevdesk",
   "version": "0.1.0",
   "description": "",
   "keywords": [
     "n8n-community-node-package"
   ],
   "license": "MIT",
-  "homepage": "",
+  "homepage": "https://nicokowalczyk.de",
   "author": {
-    "name": "",
-    "email": ""
+    "name": "Nico Kowalczyk",
+    "email": "kontakt@nicokowalczyk.de"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/<...>/n8n-nodes-<...>.git"
+    "url": "https://github.com/nico-kow/n8n-nodes-sevdesk.git"
   },
   "main": "index.js",
   "scripts": {
@@ -35,7 +35,8 @@
     ],
     "nodes": [
       "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js"
+      "dist/nodes/HttpBin/HttpBin.node.js",
+      "dist/nodes/SevDesk/SevDesk.node.js"
     ]
   },
   "devDependencies": {

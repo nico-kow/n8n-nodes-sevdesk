@@ -6,6 +6,8 @@ import {
 import {
 	contactFields,
 	contactOperations,
+	countryFields,
+	countryOperations,
 } from './descriptions';
 
 export class SevDesk implements INodeType {
@@ -69,6 +71,10 @@ export class SevDesk implements INodeType {
 						value: 'contactAddress',
 					},
 					{
+						name: 'Country',
+						value: 'country',
+					},
+					{
 						name: 'Invoice',
 						value: 'invoice',
 					},
@@ -96,6 +102,8 @@ export class SevDesk implements INodeType {
 			},
 			...contactOperations,
 			...contactFields,
+			...countryOperations,
+			...countryFields,
 		],
 	};
 }

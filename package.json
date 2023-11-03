@@ -1,7 +1,7 @@
 {
   "name": "n8n-nodes-sevdesk",
   "version": "0.1.0",
-  "description": "",
+  "description": "This is an n8n community node. It let's you interact with the sevDesk API. SevDesk is an accounting tool based in germany. You'll find more information on their [website](https://sevdesk.de/).",
   "keywords": [
     "n8n-community-node-package"
   ],
@@ -30,12 +30,9 @@
   "n8n": {
     "n8nNodesApiVersion": 1,
     "credentials": [
-      "dist/credentials/ExampleCredentialsApi.credentials.js",
-      "dist/credentials/HttpBinApi.credentials.js"
+      "dist/credentials/SevDeskApi.credentials.js"
     ],
     "nodes": [
-      "dist/nodes/ExampleNode/ExampleNode.node.js",
-      "dist/nodes/HttpBin/HttpBin.node.js",
       "dist/nodes/SevDesk/SevDesk.node.js"
     ]
   },

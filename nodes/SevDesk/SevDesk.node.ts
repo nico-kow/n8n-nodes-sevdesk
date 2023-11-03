@@ -11,6 +11,7 @@ import {
 	countryFields,
 	countryOperations,
 } from './descriptions';
+import { contactAddressFields, contactAddressOperations } from './descriptions/ContactAddressDescription';
 
 export class SevDesk implements INodeType {
 	description: INodeTypeDescription = {
@@ -72,10 +73,10 @@ export class SevDesk implements INodeType {
 						name: 'Contact',
 						value: 'contact',
 					},
-					/*{
+					{
 						name: 'ContactAddress',
 						value: 'contactAddress',
-					},*/
+					},
 					{
 						name: 'Country',
 						value: 'country',
@@ -112,6 +113,8 @@ export class SevDesk implements INodeType {
 			...countryFields,
 			...categoryOperations,
 			...categoryFields,
+			...contactAddressOperations,
+			...contactAddressFields
 		],
 	};
 }

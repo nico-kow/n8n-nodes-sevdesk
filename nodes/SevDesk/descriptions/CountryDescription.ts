@@ -1,9 +1,6 @@
 import { INodeProperties } from 'n8n-workflow';
 
-export const countryOperations: INodeProperties[] = []
-
-
-export const countryFields: INodeProperties[] = [
+export const countryOperations: INodeProperties[] = [
 	{
 		displayName: 'Operation',
 		name: 'operation',
@@ -39,6 +36,8 @@ export const countryFields: INodeProperties[] = [
 				},
 			}
 		]
-	}
-
+	},
 ]
+
+
+export const countryFields: INodeProperties[] = []

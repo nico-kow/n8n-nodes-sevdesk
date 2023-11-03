@@ -4,6 +4,8 @@ import {
 } from 'n8n-workflow';
 
 import {
+	categoryFields,
+	categoryOperations,
 	contactFields,
 	contactOperations,
 	countryFields,
@@ -46,64 +48,70 @@ export class SevDesk implements INodeType {
 				noDataExpression: true,
 				default: 'contact',
 				options: [
-					{
+					/*{
 						name: 'AccountingContact',
 						value: 'accountingContact',
-					},
+					},*/
 					{
+						name: 'Category',
+						value: 'category',
+					},
+					/*{
 						name: 'CheckAccount',
 						value: 'checkAccount',
-					},
-					{
+					},*/
+					/*{
 						name: 'CheckAccountTransaction',
 						value: 'checkAccountTransaction',
-					},
-					{
+					},*/
+					/*{
 						name: 'CommunicationWay',
 						value: 'communicationWay',
-					},
+					},*/
 					{
 						name: 'Contact',
 						value: 'contact',
 					},
-					{
+					/*{
 						name: 'ContactAddress',
 						value: 'contactAddress',
-					},
+					},*/
 					{
 						name: 'Country',
 						value: 'country',
 					},
-					{
+					/*{
 						name: 'Invoice',
 						value: 'invoice',
-					},
-					{
+					},*/
+					/*{
 						name: 'Order',
 						value: 'order',
-					},
-					{
+					},*/
+					/*{
 						name: 'OrderPo',
 						value: 'orderPo',
-					},
-					{
+					},*/
+					/*{
 						name: 'Part',
 						value: 'part',
-					},
-					{
+					},*/
+					/*{
 						name: 'Voucher',
 						value: 'voucher',
-					},
-					{
+					},*/
+					/*{
 						name: 'VoucherPo',
 						value: 'voucherPo',
-					},
+					},*/
 				],
 			},
 			...contactOperations,
 			...contactFields,
 			...countryOperations,
 			...countryFields,
+			...categoryOperations,
+			...categoryFields,
 		],
 	};
 }

@@ -6,6 +6,8 @@ import {
 import {
 	categoryFields,
 	categoryOperations,
+	communicationWayFields,
+	communicationWayOperations,
 	contactFields,
 	contactOperations,
 	countryFields,
@@ -65,10 +67,10 @@ export class SevDesk implements INodeType {
 						name: 'CheckAccountTransaction',
 						value: 'checkAccountTransaction',
 					},*/
-					/*{
+					{
 						name: 'CommunicationWay',
 						value: 'communicationWay',
-					},*/
+					},
 					{
 						name: 'Contact',
 						value: 'contact',
@@ -114,7 +116,9 @@ export class SevDesk implements INodeType {
 			...categoryOperations,
 			...categoryFields,
 			...contactAddressOperations,
-			...contactAddressFields
+			...contactAddressFields,
+			...communicationWayOperations,
+			...communicationWayFields
 		],
 	};
 }

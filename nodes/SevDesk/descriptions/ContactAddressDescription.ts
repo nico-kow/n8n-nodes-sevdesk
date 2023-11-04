@@ -340,6 +340,23 @@ export const contactAddressFields: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				displayName: 'Offset',
+				name: 'offset',
+				description: 'Offset to skip for pagination',
+				type: 'number',
+				typeOptions: {
+					minValue: 1,
+				},
+				default: 50,
+				routing: {
+					send: {
+						type: 'query',
+						property: 'offset',
+						value: '={{$value}}',
+					},
+				},
+			},
 		],
 	},
 	// ----------------------------------------
@@ -359,7 +376,7 @@ export const contactAddressFields: INodeProperties[] = [
 		},
 	},
 	{
-		displayName: 'Additional Fields',
+		displayName: 'Fields to Update',
 		name: 'additionalFields',
 		type: 'collection',
 		placeholder: 'Add Field',
@@ -494,7 +511,6 @@ export const contactAddressFields: INodeProperties[] = [
 			{
 				displayName: 'Contact ID',
 				name: 'contactId',
-				required: true,
 				description: 'Unique identifier of the Contact',
 				type: 'number',
 				default: 0,

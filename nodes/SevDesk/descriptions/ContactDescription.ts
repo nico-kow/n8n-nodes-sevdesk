@@ -268,6 +268,40 @@ export const contactFields: INodeProperties[] = [
 					},
 				},
 			},
+			{
+				displayName: 'Limit',
+				name: 'limit',
+				description: 'Max number of results to return',
+				type: 'number',
+				typeOptions: {
+					minValue: 1,
+				},
+				default: 50,
+				routing: {
+					send: {
+						type: 'query',
+						property: 'limit',
+						value: '={{$value}}',
+					},
+				},
+			},
+			{
+				displayName: 'Offset',
+				name: 'offset',
+				description: 'Offset to skip for pagination',
+				type: 'number',
+				typeOptions: {
+					minValue: 1,
+				},
+				default: 50,
+				routing: {
+					send: {
+						type: 'query',
+						property: 'offset',
+						value: '={{$value}}',
+					},
+				},
+			},
 		],
 	},
 

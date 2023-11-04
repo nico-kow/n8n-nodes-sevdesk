@@ -4,6 +4,8 @@ import {
 } from 'n8n-workflow';
 
 import {
+	accountingContactFields,
+	accountingContactOperations,
 	categoryFields,
 	categoryOperations,
 	communicationWayFields,
@@ -51,10 +53,10 @@ export class SevDesk implements INodeType {
 				noDataExpression: true,
 				default: 'contact',
 				options: [
-					/*{
+					{
 						name: 'AccountingContact',
 						value: 'accountingContact',
-					},*/
+					},
 					{
 						name: 'Category',
 						value: 'category',
@@ -118,7 +120,9 @@ export class SevDesk implements INodeType {
 			...contactAddressOperations,
 			...contactAddressFields,
 			...communicationWayOperations,
-			...communicationWayFields
+			...communicationWayFields,
+			...accountingContactOperations,
+			...accountingContactFields
 		],
 	};
 }

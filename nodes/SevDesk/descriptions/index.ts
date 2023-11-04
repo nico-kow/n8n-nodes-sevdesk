@@ -1,4 +1,4 @@
-//export * from './AccountingContactDescription';
+export * from './AccountingContactDescription';
 export * from './CategoryDescription';
 //export * from './CheckAccountDescription';
 //export * from './CheckAccountTransactionDescription';

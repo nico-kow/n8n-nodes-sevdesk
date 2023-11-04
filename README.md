@@ -34,6 +34,18 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 Developed and tested in version 1.11.3
 
+## Current Status
+This node is work in progress right now. 
+
+- [x] Contacts
+	- Contact
+	- ContactAddress
+	- CommunicationWay
+	- AccountingContact
+	- Category
+	- Country
+- [ ] Banking
+
 ## Usage
 
 ### Credentials

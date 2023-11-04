@@ -38,13 +38,26 @@ Developed and tested in version 1.11.3
 This node is work in progress right now. 
 
 - [x] Contacts
-	- Contact
-	- ContactAddress
-	- CommunicationWay
-	- AccountingContact
-	- Category
-	- Country
+	- [x] Contact
+	- [x] ContactAddress
+	- [x] CommunicationWay
+	- [x] AccountingContact
+	- [x] Category
+	- [x] Country
 - [ ] Banking
+	- [ ] CheckAccount
+	- [ ] CheckAccountTransaction
+- [ ] Inventory
+	- [ ] Part
+- [ ] Invoice
+	- [ ] Invoice
+	- [ ] Invoice Position
+- [ ] Order
+	- [ ] Order
+	- [ ] Order Position
+- [ ] Receipt
+	- [ ] Voucher
+	- [ ] Voucher Position
 
 ## Usage
 

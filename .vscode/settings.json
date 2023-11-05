@@ -6,6 +6,7 @@
         "familyname",
         "IBAN",
         "noteu",
+        "sevdesk",
         "surename",
         "titel"
     ]

@@ -75,6 +75,12 @@ This node is work in progress right now.
 
 ##### Delete Contact
 
+#### Category
+
+##### Get Categories
+
+
+
 ## Resources
 
 * [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)

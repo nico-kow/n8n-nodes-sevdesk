@@ -84,6 +84,10 @@ export const categoryFields: INodeProperties[] = [
 				name: 'Contact Address',
 				value: 'contactAddress',
 			},
+			{
+				name: 'Part',
+				value: 'Part',
+			},
 		],
 	},
 ]

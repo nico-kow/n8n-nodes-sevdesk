@@ -59,27 +59,32 @@ This node is work in progress right now.
 	- [ ] Voucher
 	- [ ] Voucher Position
 
+
+## Operations
+
+### Contacts
+
+### Contact Addresses
+
+### Communication Ways
+
+### Countries
+
+### Categories
+
+### Accounting Contacts
+
+### Units
+Units can be set at: https://my.sevdesk.de/admin/system/unity in the admin panel.
+
+#### Get Many
+With this Method you get a list of all units defined in the system. 
+
+## Credentials
+
+_If users need to authenticate with the app/service, provide details here. You should include prerequisites (such as signing up with the service), available authentication methods, and how to set them up._
+
 ## Usage
-
-### Credentials
-
-### Resources
-
-#### Contacts
-
-##### Add Contact
-
-##### Update Contact
-
-##### Read Contact(s)
-
-##### Delete Contact
-
-#### Category
-
-##### Get Categories
-
-
 
 ## Resources
 

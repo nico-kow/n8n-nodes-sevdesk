@@ -9,7 +9,7 @@ export * from './CountryDescription';
 //export * from './InvoiceDescription';
 //export * from './OrderDescription';
 //export * from './OrderPoDescription';
-//export * from './PartDescription';
+export * from './PartDescription';
 export * from './UnityDescription';
 //export * from './VoucherDescription';
 //export * from './VoucherPoDescription';

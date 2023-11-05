@@ -14,6 +14,8 @@ import {
 	contactOperations,
 	countryFields,
 	countryOperations,
+	partFields,
+	partOperations,
 	unityFields,
 	unityOperations,
 } from './descriptions';
@@ -99,10 +101,10 @@ export class SevDesk implements INodeType {
 						name: 'OrderPo',
 						value: 'orderPo',
 					},*/
-					/*{
+					{
 						name: 'Part',
 						value: 'part',
-					},*/
+					},
 					{
 						name: 'Unit',
 						value: 'unity',
@@ -130,7 +132,9 @@ export class SevDesk implements INodeType {
 			...accountingContactOperations,
 			...accountingContactFields,
 			...unityOperations,
-			...unityFields
+			...unityFields,
+			...partOperations,
+			...partFields
 		],
 	};
 }

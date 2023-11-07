@@ -77,6 +77,7 @@ This node is work in progress right now.
 
 ### Parts
 You can see and edit your parts in the admin panel over here: https://my.sevdesk.de/admin/inventory/
+
 Currently it is not possible to delete parts with the api of sevdesk.
 
 **Create**
@@ -110,7 +111,7 @@ With this Method you get a list of all units defined in the system.
 
 
 
-\* This is an affiliate link. I get a provision if you buy sevdesk following my link. If you want to sign up with sevdesk, but don't want me to get a provision, you can sign up, with this link: [SevDesk](https://sevdesk.de/)
+\* *This is an affiliate link. I get a provision if you buy sevdesk following my link. If you want to sign up with sevdesk, but don't want me to get a provision, you can sign up, with this link: [SevDesk](https://sevdesk.de/)*
 
 ## Resources
 

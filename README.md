@@ -42,8 +42,8 @@ This node is work in progress right now.
 	- [x] ContactAddress
 	- [x] CommunicationWay
 	- [x] AccountingContact
-	- [x] Category
-	- [x] Country
+- [x] Category
+- [x] Country
 - [ ] Banking
 	- [ ] CheckAccount
 	- [ ] CheckAccountTransaction
@@ -116,6 +116,12 @@ With this Method you get a list of all units defined in the system.
 
 * [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/)
 * [sevDesk API Documentation](https://api.sevdesk.de/)
+
+## Kudos
+
+1. Thank you [GitCedric](https://github.com/gitcedric) for the fundamental work on this node. You can find his Pull Request to the main n8n repo over here: https://github.com/n8n-io/n8n/pull/2787/
+2. Thank you, [Bram](https://github.com/bramkn), for being such an exemplary community member. I've modeled this readme after your template and I appreciate your guidance.
+3. Thank you, dear [n8n](https://github.com/n8n-io/n8n) team, for providing and continually developing this wonderful automation tool for all of us.   
 
 ## Version history
 

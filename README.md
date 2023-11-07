@@ -47,8 +47,8 @@ This node is work in progress right now.
 - [ ] Banking
 	- [ ] CheckAccount
 	- [ ] CheckAccountTransaction
-- [ ] Inventory
-	- [ ] Part
+- [x] Inventory
+	- [x] Part
 - [ ] Invoice
 	- [ ] Invoice
 	- [ ] Invoice Position
@@ -62,29 +62,55 @@ This node is work in progress right now.
 
 ## Operations
 
+### Accounting Contacts
+
+### Categories
+
+### Communication Ways
+
 ### Contacts
 
 ### Contact Addresses
 
-### Communication Ways
-
 ### Countries
 
-### Categories
 
-### Accounting Contacts
+### Parts
+You can see and edit your parts in the admin panel over here: https://my.sevdesk.de/admin/inventory/
+Currently it is not possible to delete parts with the api of sevdesk.
+
+**Create**
+Creates a new part. Required fields are *name*, *partNumber*, *stock*, *unity*, *taxRate*.
+All other fields are additional. 
+
+**Update**
+Updates fields of a part. Same like *Create* but you need to provide a valid part ID. A part id is not the part number. If you don't have a part id, you can search for your part with the part-number or part-name with *Get Many*.
+
+**Get Many**
+Retrieves all parts of the system. You can filter the returned data with some additional filters. It is also possible to paginate the returned data. 
+
+
+**Get Current Stock for Part**
+Gets only the information about the stock of one Item. Required parameter is part ID. A part id is not the part number. If you don't have a part id, you can search for your part with the part-number or part-name with *Get Many*.
 
 ### Units
 Units can be set at: https://my.sevdesk.de/admin/system/unity in the admin panel.
 
-#### Get Many
+**Get Many**
 With this Method you get a list of all units defined in the system. 
 
 ## Credentials
 
-_If users need to authenticate with the app/service, provide details here. You should include prerequisites (such as signing up with the service), available authentication methods, and how to set them up._
+1. You need to have an sevdesk account. You can create one over here [SevDesk](https://nicokowalczyk.de/sevdesk)*
+2. Copy your api key -> [How-To find your API Key](https://api.sevdesk.de/#section/Authentication-and-Authorization) by SevDesks
+3. Create new Credential of Type SevDesk in your n8n instance
+4. Paste your API Key
+5. Success!
+![Alt text](./images/credentials-success.png)
 
-## Usage
+
+
+\* This is an affiliate link. I get a provision if you buy sevdesk following my link. If you want to sign up with sevdesk, but don't want me to get a provision, you can sign up, with this link: [SevDesk](https://sevdesk.de/)
 
 ## Resources
 

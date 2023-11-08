@@ -1,3 +1,5 @@
+Currently in testing.
+
 # n8n-nodes-sevdesk
 
 This is an n8n community node. It let's you interact with the sevDesk API. SevDesk is an accounting tool based in germany. 
@@ -49,9 +51,8 @@ This node is work in progress right now.
 	- [x] CheckAccountTransaction
 - [x] Inventory
 	- [x] Part
-- [ ] Invoice
-	- [ ] Invoice
-	- [ ] Invoice Position
+- [x] Invoice
+	- [x] Invoice
 - [ ] Order
 	- [ ] Order
 	- [ ] Order Position
@@ -80,7 +81,6 @@ These are the accounts you can find over here in sevdesk. https://my.sevdesk.de/
 **Get Balance of Account for given Date** It is possible to retrieve the balance of a checked account to a given date in the past. 
 
 ### Check Account Transactions
-
 **Create** Creates new check accounts.
 
 **Update** Updates a check account by a given ID.
@@ -97,6 +97,24 @@ These are the accounts you can find over here in sevdesk. https://my.sevdesk.de/
 
 ### Countries
 
+### Invoices
+**Book** This endpoint can be used to book invoices. Invoices are booked on payment accounts where (bank) transactions are located and might be linked to the transactions by using this endpoint.
+
+**Cancel** This endpoint will cancel the specified invoice therefor creating a cancellation invoice. The cancellation invoice will be automatically paid and the source invoices status will change to "cancelled".
+
+**Create and Update** This endpoint offers you the following functionality. <ul> <li>Create invoices together with positions and discounts</li> <li>Delete positions while adding new ones</li> <li>Delete or add discounts, or both at the same time</li> <li>Automatically fill the address of the supplied contact into the invoice address</li> </ul>
+
+**Get Many** Gets many invoices. There are a multitude of parameter which can be used to filter. A few of them are attached but for a complete list please check out <a href="https://5677.extern.sevdesk.dev/apiOverview/index.html#/doc-invoices#filtering">this</a> list.
+
+**Get Invoice PDF** Retrieves the pdf document of an invoice with additional metadata.
+
+**Is Invoice Partially Paid** Returns "true" if the given invoice is partially paid - "false" if it is not. Invoices which are completely paid are regarded as not partially paid.
+
+**Mark as sent** Marks an invoice as sent by a chosen send type
+
+**Render Invoice** Using this endpoint you can render the pdf document of an invoice. Use cases for this are the retrieval of the pdf location or the forceful re-render of a already sent invoice. Please be aware that changing an invoice after it has been sent to a customer is not an allowed bookkeeping process
+
+**Send via Email** This endpoint sends the specified invoice to a customer via email. This will automatically mark the invoice as sent. Please note, that in production an invoice is not allowed to be changed after this happened!
 
 ### Parts
 You can see and edit your parts in the admin panel over here: https://my.sevdesk.de/admin/inventory/
@@ -149,4 +167,4 @@ With this Method you get a list of all units defined in the system.
 
 ## Version history
 
-v1: first version.
+v1: initial version.

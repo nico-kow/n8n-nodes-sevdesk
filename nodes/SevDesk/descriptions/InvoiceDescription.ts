@@ -13,7 +13,7 @@ export const invoiceOperations: INodeProperties[] = [
 		},
 		options: [
 			// ----------------------------------------
-			//               Invoice: book
+			//              invoice: book
 			// ----------------------------------------
 			{
 				name: 'Book',
@@ -29,7 +29,7 @@ export const invoiceOperations: INodeProperties[] = [
 				},
 			},
 			// ----------------------------------------
-			//               Invoice: cancel
+			//              invoice: cancel
 			// ----------------------------------------
 			{
 				name: 'Cancel',
@@ -45,7 +45,7 @@ export const invoiceOperations: INodeProperties[] = [
 				},
 			},
 			// ----------------------------------------
-			//               Invoice: createByFactory
+			//              invoice: createByFactory
 			// ----------------------------------------
 			{
 				name: 'Create or Update',
@@ -71,7 +71,7 @@ export const invoiceOperations: INodeProperties[] = [
 				},
 			},
 			// ----------------------------------------
-			//               Invoice: getMany
+			//              invoice: getMany
 			// ----------------------------------------
 			{
 				name: 'Get Many',
@@ -97,10 +97,10 @@ export const invoiceOperations: INodeProperties[] = [
 				},
 			},
 			// ----------------------------------------
-			//               Invoice: getInvoicePdf
+			//              invoice: getPdf
 			// ----------------------------------------
 			{
-				name: 'Invoice Get Pdf',
+				name: 'Get Pdf',
 				value: 'invoiceGetPdf',
 				description: 'Retrieves the pdf document of an invoice with additional metadata',
 				action: 'Invoice get pdf an invoice',
@@ -112,23 +112,7 @@ export const invoiceOperations: INodeProperties[] = [
 				},
 			},
 			// ----------------------------------------
-			//               Invoice: renderInvoice
-			// ----------------------------------------
-			{
-				name: 'Invoice Render',
-				value: 'invoiceRender',
-				description:
-					'Using this endpoint you can render the pdf document of an invoice. Use cases for this are the retrieval of the pdf location or the forceful re-render of a already sent invoice. Please be aware that changing an invoice after it has been sent to a customer is not an allowed bookkeeping process',
-				action: 'Invoice render an invoice',
-				routing: {
-					request: {
-						method: 'POST',
-						url: '=/Invoice/{{$parameter.invoiceId}}/render',
-					},
-				},
-			},
-			// ----------------------------------------
-			//               Invoice: isInvoicePartiallyPaid
+			//              invoice: getIsInvoicePartiallyPaid
 			// ----------------------------------------
 			{
 				name: 'Is Invoice Partially Paid',
@@ -154,7 +138,7 @@ export const invoiceOperations: INodeProperties[] = [
 				},
 			},
 			// ----------------------------------------
-			//               Invoice: markAsSent
+			//              invoice: markAsSent
 			// ----------------------------------------
 			{
 				name: 'Mark As Sent',
@@ -169,10 +153,26 @@ export const invoiceOperations: INodeProperties[] = [
 				},
 			},
 			// ----------------------------------------
-			//               Invoice: sendViaEMail
+			//              invoice: renderInvoice
 			// ----------------------------------------
 			{
-				name: 'Send Via E Mail',
+				name: 'Render Invoice',
+				value: 'invoiceRender',
+				description:
+					'Using this endpoint you can render the pdf document of an invoice. Use cases for this are the retrieval of the pdf location or the forceful re-render of a already sent invoice. Please be aware that changing an invoice after it has been sent to a customer is not an allowed bookkeeping process',
+				action: 'Invoice render an invoice',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/Invoice/{{$parameter.invoiceId}}/render',
+					},
+				},
+			},
+			// ----------------------------------------
+			//              invoice: sendViaEMail
+			// ----------------------------------------
+			{
+				name: 'Send Via EMail',
 				value: 'sendViaEMail',
 				description:
 					'This endpoint sends the specified invoice to a customer via email. This will automatically mark the invoice as sent. Please note, that in production an invoice is not allowed to be changed after this happened!',
@@ -1413,8 +1413,8 @@ export const invoiceFields: INodeProperties[] = [
 				default: 0,
 				routing: {
 					request: {
-						url: '=/Invoice?contact[id]={{$value}}&contact[objectName]=Contact'
-					}
+						url: '=/Invoice?contact[id]={{$value}}&contact[objectName]=Contact',
+					},
 				},
 			},
 			{
@@ -1485,7 +1485,7 @@ export const invoiceFields: INodeProperties[] = [
 						name: 'Payed',
 						value: 1000,
 					},
-				]
+				],
 			},
 		],
 	},

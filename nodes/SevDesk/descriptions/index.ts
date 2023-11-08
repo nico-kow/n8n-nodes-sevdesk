@@ -1,6 +1,6 @@
 export * from './AccountingContactDescription';
 export * from './CategoryDescription';
-//export * from './CheckAccountDescription';
+export * from './CheckAccountDescription';
 //export * from './CheckAccountTransactionDescription';
 export * from './CommunicationWayDescription';
 export * from './ContactDescription';

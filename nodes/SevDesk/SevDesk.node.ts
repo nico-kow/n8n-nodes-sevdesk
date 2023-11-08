@@ -18,6 +18,8 @@ import {
 	contactOperations,
 	countryFields,
 	countryOperations,
+	invoiceFields,
+	invoiceOperations,
 	partFields,
 	partOperations,
 	unityFields,
@@ -93,10 +95,10 @@ export class SevDesk implements INodeType {
 						name: 'Country',
 						value: 'country',
 					},
-					/*{
+					{
 						name: 'Invoice',
 						value: 'invoice',
-					},*/
+					},
 					/*{
 						name: 'Order',
 						value: 'order',
@@ -142,7 +144,9 @@ export class SevDesk implements INodeType {
 			...checkAccountOperations,
 			...checkAccountFields,
 			...checkAccountTransactionOperations,
-			...checkAccountTransactionFields
+			...checkAccountTransactionFields,
+			...invoiceOperations,
+			...invoiceFields
 		],
 	};
 }

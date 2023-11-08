@@ -6,7 +6,7 @@ export * from './CommunicationWayDescription';
 export * from './ContactDescription';
 //export * from './ContactAddressDescription';
 export * from './CountryDescription';
-//export * from './InvoiceDescription';
+export * from './InvoiceDescription';
 //export * from './OrderDescription';
 //export * from './OrderPoDescription';
 export * from './PartDescription';

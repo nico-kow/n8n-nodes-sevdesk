@@ -44,9 +44,9 @@ This node is work in progress right now.
 	- [x] AccountingContact
 - [x] Category
 - [x] Country
-- [ ] Banking
+- [x] Banking
 	- [x] CheckAccount
-	- [ ] CheckAccountTransaction
+	- [x] CheckAccountTransaction
 - [x] Inventory
 	- [x] Part
 - [ ] Invoice
@@ -78,6 +78,16 @@ These are the accounts you can find over here in sevdesk. https://my.sevdesk.de/
 **Get Many** Gets many checked accounts. You can filter them by ID and it is also possible to do pagination with *limit* and *offset*
 
 **Get Balance of Account for given Date** It is possible to retrieve the balance of a checked account to a given date in the past. 
+
+### Check Account Transactions
+
+**Create** Creates new check accounts.
+
+**Update** Updates a check account by a given ID.
+
+**Delete** Deletes a check account by a given ID.
+
+**Get Many** Gets many (or one) checked account transactions. You can filter them by ID and it is also possible to do pagination with *limit* and *offset*. There are also filter opportunities.
 
 ### Communication Ways
 
@@ -124,7 +134,7 @@ With this Method you get a list of all units defined in the system.
 
 
 
-\* *This is an affiliate link. I get a provision if you buy sevdesk following my link. If you want to sign up with sevdesk, but don't want me to get a provision, you can sign up, with this link: [SevDesk](https://sevdesk.de/)*
+\* *This is an affiliate link. I get a provision if you subscribe to sevdesk by following this link. If you want to sign up with sevdesk, but don't want me to get a provision, you can sign up with this link: [SevDesk](https://sevdesk.de/)*
 
 ## Resources
 

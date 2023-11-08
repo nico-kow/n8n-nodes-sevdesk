@@ -71,24 +71,6 @@ export const invoiceOperations: INodeProperties[] = [
 				},
 			},
 			// ----------------------------------------
-			//               Invoice: delete
-			// ----------------------------------------
-			{
-				name: 'Delete',
-				value: 'delete',
-				action: 'Delete an invoice',
-			},
-			// ----------------------------------------
-			//               Invoice: getIsInvoicePartiallyPaid
-			// ----------------------------------------
-			{
-				name: 'Get Is Invoice Partially Paid',
-				value: 'getIsInvoicePartiallyPaid',
-				description:
-					'Returns "true" if the given invoice is partially paid - "false" if it is not. Invoices which are completely paid are regarded as not partially paid.',
-				action: 'Get is invoice partially paid an invoice',
-			},
-			// ----------------------------------------
 			//               Invoice: getMany
 			// ----------------------------------------
 			{
@@ -97,6 +79,22 @@ export const invoiceOperations: INodeProperties[] = [
 				description:
 					'There are a multitude of parameter which can be used to filter. A few of them are attached but for a complete list please check out <a href="https://5677.extern.sevdesk.dev/apiOverview/index.html#/doc-invoices#filtering">this</a> list.',
 				action: 'Get many invoices',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/Invoice',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'rootProperty',
+								properties: {
+									property: 'objects',
+								},
+							},
+						],
+					},
+				},
 			},
 			// ----------------------------------------
 			//               Invoice: getInvoicePdf
@@ -106,6 +104,12 @@ export const invoiceOperations: INodeProperties[] = [
 				value: 'invoiceGetPdf',
 				description: 'Retrieves the pdf document of an invoice with additional metadata',
 				action: 'Invoice get pdf an invoice',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/Invoice/{{$parameter.invoiceId}}/getPdf',
+					},
+				},
 			},
 			// ----------------------------------------
 			//               Invoice: renderInvoice
@@ -116,15 +120,38 @@ export const invoiceOperations: INodeProperties[] = [
 				description:
 					'Using this endpoint you can render the pdf document of an invoice. Use cases for this are the retrieval of the pdf location or the forceful re-render of a already sent invoice. Please be aware that changing an invoice after it has been sent to a customer is not an allowed bookkeeping process',
 				action: 'Invoice render an invoice',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/Invoice/{{$parameter.invoiceId}}/render',
+					},
+				},
 			},
 			// ----------------------------------------
-			//               Invoice: invoiceSendBy
+			//               Invoice: isInvoicePartiallyPaid
 			// ----------------------------------------
 			{
-				name: 'Invoice Send By',
-				value: 'invoiceSendBy',
-				description: 'Marks an invoice as sent by a chosen send type',
-				action: 'Invoice send by an invoice',
+				name: 'Is Invoice Partially Paid',
+				value: 'getIsInvoicePartiallyPaid',
+				description:
+					'Returns "true" if the given invoice is partially paid - "false" if it is not. Invoices which are completely paid are regarded as not partially paid.',
+				action: 'Is invoice partially paid an invoice',
+				routing: {
+					request: {
+						method: 'GET',
+						url: '=/Invoice/{{$parameter.invoiceId}}/getIsPartiallyPaid',
+					},
+					output: {
+						postReceive: [
+							{
+								type: 'setKeyValue',
+								properties: {
+									isInvoicePartiallyPaid: '={{$responseItem.objects}}',
+								},
+							},
+						],
+					},
+				},
 			},
 			// ----------------------------------------
 			//               Invoice: markAsSent
@@ -132,9 +159,14 @@ export const invoiceOperations: INodeProperties[] = [
 			{
 				name: 'Mark As Sent',
 				value: 'markAsSent',
-				description:
-					'Marks an invoice as sent. This endpoint should not be used any more as it bypasses the normal sending flow.',
-				action: 'Mark as sent an invoice',
+				description: 'Marks an invoice as sent by a chosen send type',
+				action: 'Mark an invoice as sent',
+				routing: {
+					request: {
+						method: 'PUT',
+						url: '=/Invoice/{{$parameter.invoiceId}}/sendBy',
+					},
+				},
 			},
 			// ----------------------------------------
 			//               Invoice: sendViaEMail
@@ -145,6 +177,12 @@ export const invoiceOperations: INodeProperties[] = [
 				description:
 					'This endpoint sends the specified invoice to a customer via email. This will automatically mark the invoice as sent. Please note, that in production an invoice is not allowed to be changed after this happened!',
 				action: 'Send via e mail an invoice',
+				routing: {
+					request: {
+						method: 'POST',
+						url: '=/Invoice/{{$parameter.invoiceId}}/sendViaEmail',
+					},
+				},
 			},
 		],
 		default: 'getMany',
@@ -355,26 +393,9 @@ export const invoiceFields: INodeProperties[] = [
 	// ----------------------------------------
 	//             invoice: create by factory
 	// ----------------------------------------
-	// {
-	// 	displayName: 'Object Name',
-	// 	name: 'objectName',
-	// 	description: 'The invoice object name',
-	// 	type: 'string',
-	// 	required: true,
-	// 	default: 'Invoice',
-	// 	displayOptions: {
-	// 		show: {
-	// 			resource: [
-	// 				'invoice',
-	// 			],
-	// 			operation: [
-	// 				'createByFactory',
-	// 			],
-	// 		},
-	// 	},
-	// },
 	{
-		displayName: 'This endpoint offers you the following functionality. <ul> <li>Create invoices together with positions and discounts</li> <li>Delete positions while adding new ones</li> <li>Delete or add discounts, or both at the same time</li> <li>Automatically fill the address of the supplied contact into the invoice address</li> </ul> To make your own request sample slimmer, you can omit all parameters which are not required and nullable. However, for a valid and logical bookkeeping document, you will also need some of them to ensure that all the necessary data is in the invoice. Please see the reference <a href="https://api.sevdesk.de/#tag/Invoice/operation/createInvoiceByFactory">here</a>',
+		displayName:
+			'This endpoint offers you the following functionality. <ul> <li>Create invoices together with positions and discounts</li> <li>Delete positions while adding new ones</li> <li>Delete or add discounts, or both at the same time</li> <li>Automatically fill the address of the supplied contact into the invoice address</li> </ul> To make your own request sample slimmer, you can omit all parameters which are not required and nullable. However, for a valid and logical bookkeeping document, you will also need some of them to ensure that all the necessary data is in the invoice. Please see the reference <a href="https://api.sevdesk.de/#tag/Invoice/operation/createInvoiceByFactory">here</a>',
 		name: 'note',
 		type: 'notice',
 		default: 0,
@@ -454,7 +475,6 @@ export const invoiceFields: INodeProperties[] = [
 			},
 		},
 	},
-
 	{
 		displayName: 'Status',
 		name: 'status',
@@ -496,7 +516,6 @@ export const invoiceFields: INodeProperties[] = [
 		],
 		default: 100,
 	},
-
 	{
 		displayName: 'Contact Person ID',
 		name: 'contactPerson',
@@ -1186,14 +1205,14 @@ export const invoiceFields: INodeProperties[] = [
 				default: 'null',
 				description:
 					'The invoice positions you want to create. If you don\'t have any, set to null. You can find the Model <a href="https://my.sevdesk.de/swaggerUI/index.html#/Models">here</a>.',
-					routing: {
-						send: {
-							type: 'body',
-							property: 'invoicePosSave',
-							value: '={{$value}}',
-						},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'invoicePosSave',
+						value: '={{$value}}',
 					},
 				},
+			},
 			{
 				displayName: 'Delete Invoice Positions',
 				name: 'invoicePosDelete',
@@ -1201,14 +1220,14 @@ export const invoiceFields: INodeProperties[] = [
 				default: 'null',
 				description:
 					'The invoice positions you want to delete. If you don\'t have any, set to null. You can find the Model <a href="https://my.sevdesk.de/swaggerUI/index.html#/Models">here</a>.',
-					routing: {
-						send: {
-							type: 'body',
-							property: 'invoicePosDelete',
-							value: '={{$value}}',
-						},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'invoicePosDelete',
+						value: '={{$value}}',
 					},
 				},
+			},
 		],
 	},
 	{
@@ -1231,14 +1250,14 @@ export const invoiceFields: INodeProperties[] = [
 				default: 'null',
 				description:
 					'The discounts you want to create. If you don\'t have any, set to null. You can find the Model <a href="https://my.sevdesk.de/swaggerUI/index.html#/Models">here</a>.',
-					routing: {
-						send: {
-							type: 'body',
-							property: 'discountSave',
-							value: '={{$value}}',
-						},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'discountSave',
+						value: '={{$value}}',
 					},
 				},
+			},
 			{
 				displayName: 'Delete Discounts',
 				name: 'discountDelete',
@@ -1246,14 +1265,14 @@ export const invoiceFields: INodeProperties[] = [
 				default: 'null',
 				description:
 					'The discounts you want to create. If you don\'t have any, set to null. You can find the Model <a href="https://my.sevdesk.de/swaggerUI/index.html#/Models">here</a>.',
-					routing: {
-						send: {
-							type: 'body',
-							property: 'discountDelete',
-							value: '={{$value}}',
-						},
+				routing: {
+					send: {
+						type: 'body',
+						property: 'discountDelete',
+						value: '={{$value}}',
 					},
 				},
+			},
 		],
 	},
 
@@ -1304,6 +1323,13 @@ export const invoiceFields: INodeProperties[] = [
 				operation: ['invoiceRender'],
 			},
 		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'forceReload',
+				value: '={{$value}}',
+			},
+		},
 	},
 
 	// ----------------------------------------
@@ -1325,7 +1351,7 @@ export const invoiceFields: INodeProperties[] = [
 	},
 
 	// ----------------------------------------
-	//             invoice: getAll
+	//             invoice: getMany
 	// ----------------------------------------
 	{
 		displayName: 'Return All',
@@ -1336,7 +1362,7 @@ export const invoiceFields: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['invoice'],
-				operation: ['getAll'],
+				operation: ['getMany'],
 			},
 		},
 	},
@@ -1352,8 +1378,15 @@ export const invoiceFields: INodeProperties[] = [
 		displayOptions: {
 			show: {
 				resource: ['invoice'],
-				operation: ['getAll'],
+				operation: ['getMany'],
 				returnAll: [false],
+			},
+		},
+		routing: {
+			send: {
+				type: 'query',
+				property: 'limit',
+				value: '={{$value}}',
 			},
 		},
 	},
@@ -1362,13 +1395,12 @@ export const invoiceFields: INodeProperties[] = [
 		name: 'filters',
 		type: 'collection',
 		placeholder: 'Add Field',
-		description:
-			'There are a multitude of parameter which can be used to filter. A few of them are attached but for a complete list please check out &lt;a href="https://5677.extern.sevdesk.dev/apiOverview/index.html#/doc-invoices#filtering"&gt;this&lt;/&gt; list.',
+		description: 'There are a multitude of parameter which can be used to filter',
 		default: {},
 		displayOptions: {
 			show: {
 				resource: ['invoice'],
-				operation: ['getAll'],
+				operation: ['getMany'],
 			},
 		},
 		options: [
@@ -1379,13 +1411,11 @@ export const invoiceFields: INodeProperties[] = [
 					'Retrieve all invoices with this contact. Must be provided with Contact Object Name.',
 				type: 'number',
 				default: 0,
-			},
-			{
-				displayName: 'Contact Object Name',
-				name: 'contactObjectName',
-				description: 'Only required if Contact ID was provided. "Contact" should be used as value.',
-				type: 'string',
-				default: 'Contact',
+				routing: {
+					request: {
+						url: '=/Invoice?contact[id]={{$value}}&contact[objectName]=Contact'
+					}
+				},
 			},
 			{
 				displayName: 'End Date',
@@ -1393,6 +1423,13 @@ export const invoiceFields: INodeProperties[] = [
 				description: 'Retrieve all invoices with a date equal or lower',
 				type: 'dateTime',
 				default: '',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'endDate',
+						value: '={{$value}}',
+					},
+				},
 			},
 			{
 				displayName: 'Invoice Number',
@@ -1400,6 +1437,13 @@ export const invoiceFields: INodeProperties[] = [
 				description: 'Retrieve all invoices with this invoice number',
 				type: 'string',
 				default: '',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'invoiceNumber',
+						value: '={{$value}}',
+					},
+				},
 			},
 			{
 				displayName: 'Start Date',
@@ -1407,31 +1451,44 @@ export const invoiceFields: INodeProperties[] = [
 				description: 'Retrieve all invoices with a date equal or higher',
 				type: 'dateTime',
 				default: '',
+				routing: {
+					send: {
+						type: 'query',
+						property: 'startDate',
+						value: '={{$value}}',
+					},
+				},
 			},
 			{
 				displayName: 'Status',
 				name: 'status',
 				description: 'Status of the invoices to retrieve. One of "50", "100", "1000".',
-				type: 'number',
-				default: 0,
+				type: 'options',
+				default: 100,
+				routing: {
+					send: {
+						type: 'query',
+						property: 'status',
+						value: '={{$value}}',
+					},
+				},
+				options: [
+					{
+						name: 'Draft',
+						value: 100,
+					},
+					{
+						name: 'Open / Due',
+						value: 200,
+					},
+					{
+						name: 'Payed',
+						value: 1000,
+					},
+				]
 			},
 		],
 	},
-	{
-		displayName: 'Additional Filters',
-		name: 'additionalFilters',
-		description:
-			'There are a multitude of parameter which can be used to filter. A few of them are attached but for a complete list please check out &lt;a href="https://5677.extern.sevdesk.dev/apiOverview/index.html#/doc-invoices#filtering"&gt;this&lt;/&gt; list. Provide filters as JSON.',
-		type: 'json',
-		default: {},
-		displayOptions: {
-			show: {
-				resource: ['invoice'],
-				operation: ['getAll'],
-			},
-		},
-	},
-
 	// ----------------------------------------
 	//    invoice: getIsInvoicePartiallyPaid
 	// ----------------------------------------
@@ -1467,54 +1524,6 @@ export const invoiceFields: INodeProperties[] = [
 			},
 		},
 	},
-
-	// ----------------------------------------
-	//          invoice: invoiceSendBy
-	// ----------------------------------------
-	{
-		displayName: 'Invoice ID',
-		name: 'invoiceId',
-		description: 'ID of invoice to mark as sent',
-		type: 'number',
-		required: true,
-		default: 0,
-		displayOptions: {
-			show: {
-				resource: ['invoice'],
-				operation: ['invoiceSendBy'],
-			},
-		},
-	},
-	{
-		displayName: 'Send Type',
-		name: 'sendType',
-		description:
-			'Specifies the way in which the invoice was sent to the customer. Accepts "VPR" (print), "VP" (postal), "VM" (mail) and "VPDF" (downloaded pfd).',
-		type: 'string',
-		required: true,
-		default: '',
-		displayOptions: {
-			show: {
-				resource: ['invoice'],
-				operation: ['invoiceSendBy'],
-			},
-		},
-	},
-	{
-		displayName: 'Send Draft',
-		name: 'sendDraft',
-		description: 'Whether the invoice should be enshrined after marking it as sent',
-		type: 'boolean',
-		required: true,
-		default: false,
-		displayOptions: {
-			show: {
-				resource: ['invoice'],
-				operation: ['invoiceSendBy'],
-			},
-		},
-	},
-
 	// ----------------------------------------
 	//           invoice: markAsSent
 	// ----------------------------------------
@@ -1529,6 +1538,67 @@ export const invoiceFields: INodeProperties[] = [
 			show: {
 				resource: ['invoice'],
 				operation: ['markAsSent'],
+			},
+		},
+	},
+	{
+		displayName: 'Send Type',
+		name: 'sendType',
+		description:
+			'Specifies the way in which the invoice was sent to the customer. Accepts "VPR" (print), "VP" (postal), "VM" (mail) and "VPDF" (downloaded pfd).',
+		type: 'options',
+		required: true,
+		default: 'VPR',
+		displayOptions: {
+			show: {
+				resource: ['invoice'],
+				operation: ['markAsSent'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'sendType',
+				value: '={{$value}}',
+			},
+		},
+		options: [
+			{
+				name: 'Print (VPR)',
+				value: 'VPR',
+			},
+			{
+				name: 'Postal (VP)',
+				value: 'VP',
+			},
+			{
+				name: 'Mail (VM)',
+				value: 'VM',
+			},
+			{
+				name: 'Downloaded (VPDF)',
+				value: 'VPDF',
+			},
+		],
+	},
+	{
+		displayName: 'Send Draft',
+		name: 'sendDraft',
+		description: 'Whether the invoice should be enshrined after marking it as sent',
+		type: 'boolean',
+		required: true,
+		default: false,
+		displayOptions: {
+			show: {
+				resource: ['invoice'],
+				operation: ['markAsSent'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'sendDraft',
+				value: '={{$value}}',
 			},
 		},
 	},
@@ -1563,6 +1633,13 @@ export const invoiceFields: INodeProperties[] = [
 				operation: ['sendViaEMail'],
 			},
 		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'toEmail',
+				value: '={{$value}}',
+			},
+		},
 	},
 	{
 		displayName: 'Subject',
@@ -1577,6 +1654,13 @@ export const invoiceFields: INodeProperties[] = [
 				operation: ['sendViaEMail'],
 			},
 		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'subject',
+				value: '={{$value}}',
+			},
+		},
 	},
 	{
 		displayName: 'Text',
@@ -1589,6 +1673,13 @@ export const invoiceFields: INodeProperties[] = [
 			show: {
 				resource: ['invoice'],
 				operation: ['sendViaEMail'],
+			},
+		},
+		routing: {
+			send: {
+				type: 'body',
+				property: 'text',
+				value: '={{$value}}',
 			},
 		},
 	},
@@ -1612,6 +1703,13 @@ export const invoiceFields: INodeProperties[] = [
 				type: 'boolean',
 				default: false,
 				description: 'Whether a copy of this email is sent to you',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'copy',
+						value: '={{$value}}',
+					},
+				},
 			},
 			{
 				displayName: 'Additional Attachments',
@@ -1620,6 +1718,13 @@ export const invoiceFields: INodeProperties[] = [
 				default: '',
 				description:
 					'Additional attachments to the mail. String of IDs of existing documents in your * sevdesk account separated by ",".',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'additionalAttachments',
+						value: '={{$value}}',
+					},
+				},
 			},
 			{
 				displayName: 'CC Email',
@@ -1627,6 +1732,13 @@ export const invoiceFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'String of mail addresses to be put as cc separated by ","',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'ccEmail',
+						value: '={{$value}}',
+					},
+				},
 			},
 			{
 				displayName: 'BCC Email',
@@ -1634,6 +1746,13 @@ export const invoiceFields: INodeProperties[] = [
 				type: 'string',
 				default: '',
 				description: 'String of mail addresses to be put as bcc separated by ","',
+				routing: {
+					send: {
+						type: 'body',
+						property: 'bccEmail',
+						value: '={{$value}}',
+					},
+				},
 			},
 		],
 	},
